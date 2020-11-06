@@ -1,4 +1,5 @@
 # vue-mallapp
+基于Vue仿蘑菇街Wap
 
 ## Project setup
 ```

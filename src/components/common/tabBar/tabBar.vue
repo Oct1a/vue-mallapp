@@ -11,7 +11,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 #tabBar{
     display: flex;
     height: 49px;
