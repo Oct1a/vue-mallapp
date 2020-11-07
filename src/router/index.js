@@ -13,6 +13,9 @@ const Category = () =>
 const Profile = () =>
   import ('views/profile/Profile.vue')
 
+const Detail = () =>
+  import ('views/detail/Detail.vue')
+
 Vue.use(Router)
 
 const routes = [{
@@ -34,6 +37,10 @@ const routes = [{
   path: '/profile',
   name: '我的',
   component: Profile
+}, {
+  path: '/detail/:id',
+  name: '商品详情',
+  component: Detail
 }]
 
 const router = new Router({

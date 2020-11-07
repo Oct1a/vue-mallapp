@@ -1,8 +1,9 @@
 <template>
     <swiper>
-        <swiper-item v-for="(item,index) in banners" :key="index">
-            <a :href="item.slide_show_imgUrl">
-              <img :src="item.slide_show_imgUrl" @load="imageLoad">
+      <!-- <div>{{banners.topImages}}</div> -->
+        <swiper-item v-for="(item,index) in Array(banners.topImages)" :key="index">
+            <a :href="item.topImages">
+              <img :src="item.topImages" @load="imageLoad">
             </a>
         </swiper-item>
       </swiper>

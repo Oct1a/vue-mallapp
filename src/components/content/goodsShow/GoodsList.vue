@@ -2,7 +2,7 @@
     <div class="goodsList">
       <div class="goodsItem" v-for="(item,index) in goods" :key="index">
         <goods-show>
-            <div slot="goods-item">
+            <div slot="goods-item" @click="clickDetail(index)">
               <!-- <div class="pin-img"> -->
                 <img :src="item.goodsLogo" alt="" class="goods-img" @load="imageload">
                 <p class="buyNum">已售 {{item.goodsBuyNum}} 件</p>
@@ -36,8 +36,11 @@ export default {
     methods: {
       imageload() {
         this.$bus.$emit('itemImageLoad')
-          console.log(1111)
       },
+      clickDetail(index){
+        // console.log(index);
+        this.$router.push('/detail/' + this.goodsData[index].goodsId)
+      }
     },
     computed: {
       goods() { //去掉图片链接后100x100.jpg为大图

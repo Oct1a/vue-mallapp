@@ -9,9 +9,6 @@
   </div>
 </template>
 <script>
-// 1，传入标题
-// 2. 更改样式
-//
 export default {
   name:'TabControl',
   props: {
@@ -39,6 +36,7 @@ export default {
     font-size: 14px;
     display: flex;
     text-align: center;
+    background: #fff;
   }
   .tabControl-item{
     flex:1;

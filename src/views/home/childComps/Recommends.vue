@@ -28,6 +28,7 @@ export default {
     flex-wrap: wrap;
     justify-content: space-between;
     margin-top: 10px;
+    background: #fff;
   }
   .recommend-item{
       margin: 10px;
