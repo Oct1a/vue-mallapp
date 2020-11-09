@@ -66,8 +66,7 @@ export default {
     //   //  this.comment = res.data.data[3];
     //   })
   },
-  activated() {
-    // this.$refs.scroll.scrollTo(0, this.saveY, 0)
+  mounted() {
     this.$refs.scroll.refresh()
   },
   data() {
