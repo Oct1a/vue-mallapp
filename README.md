@@ -1,32 +1,37 @@
-# vue-mallapp
-基于Vue仿蘑菇街Wap
+# 基于Vue3仿蘑菇街Wap商城
 
-## Project setup
+## 项目启动
 ```
+//先安装所需模块
 yarn install
-```
-
-### Compiles and hot-reloads for development
-```
+//启动服务
 yarn serve
-```
-
-### Compiles and minifies for production
-```
+//编译
 yarn build
 ```
 
-项目文件夹分类 assets 资源文件夹 common 公共的 js 文件 commponents 下的 common 是复用的组件 content 是本次项目的业务组件 network 网络请求 store vuex 状态管理 view 视图文件
+## 项目文件夹分类
+	assets 资源文件夹
+	
+	common 公共的 js 文件
+	commponents 下的 common 是复用的组件 
+	content 是本次项目的业务组件 
+	network 网络请求 
+	store vuex状态管理 
+	view 视图文件
 
 css 文件的引用 assets -> css -> normalize.css(初始化 css 样式库) assets -> css -> base.css(项目的 css) 将 normalize 合并到 base.css( @import "./normalize.css") 将 base.css 引入到 App.vue( @import "assets/css/base.css" ) 最后项目打包的时候是 main.js 主函数 找到 APP.vue 最后找到引入的 base.css base.css 使用了 :root 获取根元素 html 定义项目中所需要的的 css 变量
 
 项目上传 github 不上传 node_modules 的包 上传到 git 的时候,没有把 node 的包传上去，但是下载回来的时候 命令行运行 npm install 会把 package-lock.json 的配置下载回来
 
-vue-cli 3.x 里面看不到配置文件 但是如果需要自己配置呢？ 自己在根目录创建 vue.config.js 配置自己的 webpack 配置 项目编译后 最后会和公共的 webpack 会合并的 自己配置的动态路径 就不需要写类似于 ../../ 这种太过于麻烦的写法了 module.exports = { configureWebpack: { resolve: { alias: { 'components': '@/components', 'content': 'components/content', 'common': 'components/common', 'assets': '@/assets', 'network': '@/network', 'views': '@/views', } } } } 使用 vue-cli 2.x 默认生成 editorconfig 目的是不同 IDE 中保持一致的代码风格 vue-cli 3.x 可以自己创建这个文件来配置自己的代码做统一风格
+### vue-cli 3.x 里面看不到配置文件 但是如何自己配置呢？ 
+自己在根目录创建`vue.config.js` 配置自己的 webpack 配置
+项目编译后 最后会和公共的 webpack 会合并的 自己配置的动态路径 就不需要写类似于 ../../ 这种太过于麻烦的写法了 module.exports = { configureWebpack: { resolve: { alias: { 'components': '@/components', 'content': 'components/content', 'common': 'components/common', 'assets': '@/assets', 'network': '@/network', 'views': '@/views', } } } } 使用 vue-cli 2.x 默认生成 editorconfig 目的是不同 IDE 中保持一致的代码风格 vue-cli 3.x 可以自己创建这个文件来配置自己的代码做统一风格
 
 整个项目的骨架 tabbar 可复用组件 components -> common -> tabbar 根据项目需求在 content 里面封装 mainTabbar 组件 在 APP.vue 引入 创建路由 index.js 配置 tabbar 和路由的关系 mode:history 采用 history 模式 路由懒加载的使用 => 为给客户更好的客户体验，首屏组件加载速度更快一些，解决白屏问题
 
-icon 图标的引入 public -> index.html (<link rel="icon" href="<%= BASE_URL %>logo.png">) 这是 jsp 的语法,为什么能被运行? 因为,最后这个 index.html 文件会被打包到 dist 文件夹下,会被编译成可以使用的语法
+### icon 图标的引入 `public -> index.html (<link rel="icon" href="<%= BASE_URL %>logo.png">)` 这是 jsp 的语法,为什么能被运行? 
+因为,最后这个 index.html 文件会被打包到 dist 文件夹下,会被编译成可以使用的语法
 
 首页的开发 采用组件化封装的思想，在 view -> home -> 创建 childComps 文件用于存放首页 home 的功能模块 需要注意的是 vue 组件中 template 模板中的资源文件的引入需要在前面加 ~ 符号
 
@@ -194,3 +199,7 @@ import Toast from './toast' const obj ={ } obj.install = function(Vue){ //vue是
 css 单位转化插件
 
 安装 npm install postcss-px-to-viewport --save-dev 修改 postcss.config.js 这个文件
+
+
+
+
