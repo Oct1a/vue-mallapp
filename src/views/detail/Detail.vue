@@ -1,17 +1,18 @@
 <template>
 <div class="detail">
-  <detail-navbar />
-  <scroll class="content" ref="scroll" :probeType="3" :pullUpLoad="true" @scrollHeight='contentScroll'>
+  <detail-navbar @titleClick="titleClick" ref="navbar"/>
+  <scroll class="content" ref="scroll" :probeType="3" @scrollHeight='contentScroll'>
     <detail-swiper :topImages="goodsInfo.topImages" />
-    <detail-base-info :goodsInfo="goodsInfo" :tips="tips" />
+    <detail-base-info :goodsInfo="goodsInfo" :tips="tips"/>
     <split-line />
-    <detail-comment :comment="comment" :goodsBuyNum="goodsInfo.goodsBuyNum" />
+    <detail-comment :comment="comment" :goodsBuyNum="goodsInfo.goodsBuyNum" ref="commentInfo" />
     <split-line />
-    <detail-shop-info :shopInfo="shopInfo" />
+    <detail-shop-info :shopInfo="shopInfo" ref="shopInfo"/>
     <split-line />
-    <detail-goods :introduce="goodsInfo.goodsIntroduce" />
+    <detail-goods :introduce="goodsInfo.goodsIntroduce" @htmlload="htmlload" ref="goodsShow"/>
   </scroll>
   <back-top @click.native="backClick" v-show='isShowTopBack' /> <!-- 返回顶部 -->
+  <detail-bottom-bar/>
 </div>
 </template>
 
@@ -22,14 +23,14 @@ import DetailBaseInfo from './childComps/DetailBaseInfo'
 import DetailComment from './childComps/DetailComment'
 import DetailGoods from './childComps/DetailGoods'
 import DetailShopInfo from './childComps/DetailShopInfo'
+import DetailBottomBar from './childComps/DetailBottomBar'
 
 import SplitLine from 'components/common/splitLine/Line'
 import Scroll from 'components/common/scroll/Scroll'; //滚动组件
-import BackTop from 'components/common/backTop/BackTop'; //返回顶部
 
-import {
-  getGoodsDetail
-} from 'network/detail.js'
+
+import {getGoodsDetail} from 'network/detail.js'
+import {showBackTop} from 'common/mixin.js'
 
 export default {
   name: 'detail',
@@ -42,16 +43,39 @@ export default {
     DetailShopInfo,
     SplitLine,
     Scroll,
-    BackTop
+    DetailBottomBar
   },
+  mixins:[showBackTop],
   methods: {
-    backClick() {
-      this.$refs.scroll.scrollTo(0, 0, 500)
-    },
     contentScroll(postion) {
-      // 滚动判断是否显示返回按钮
-      this.isShowTopBack = -postion.y > 1000
+      this.listenShowBackTop(postion) //显示返回按钮
+      let postionY = -postion.y;
+      // 联动效果
+      for(let i=0;i<=this.currentypeYs.length-1;i++ ){
+        if(this.currentIndex !=i &&(postionY >= this.currentypeYs[i] && postionY < this.currentypeYs[i+1] )){
+            this.currentIndex = i
+            this.$refs.navbar.currentIndex = i
+        }
+      }
     },
+    htmlload() {
+      this.$refs.scroll.refresh()
+      console.log(this.$refs.scroll.getScrollHeight())
+      this.$refs.goodsShow.destory()
+    },
+    titleClick(index){
+      this.$refs.scroll.scrollTo(0,-this.currentypeYs[index],0)
+    }
+  },
+  updated () {
+    this.currentypeYs= [];
+    this.currentypeYs.push(0);
+    this.currentypeYs.push(this.$refs.commentInfo.$el.offsetTop);
+    this.currentypeYs.push(this.$refs.shopInfo.$el.offsetTop);
+    this.currentypeYs.push(this.$refs.goodsShow.$el.offsetTop);
+    this.currentypeYs.push(Number.MAX_VALUE);
+    console.log(this.currentypeYs);
+
   },
   created() {
     this.goodsId = this.$route.params.id
@@ -66,9 +90,6 @@ export default {
     //   //  this.comment = res.data.data[3];
     //   })
   },
-  mounted() {
-    this.$refs.scroll.refresh()
-  },
   data() {
     return {
       goodsId: {
@@ -79,8 +100,9 @@ export default {
       shopInfo: null, //店铺信息
       tips: [], //包含的服务
       comment: [], //评论信息
-      isShowTopBack: false,
-      data: {
+      currentIndex:0,
+      currentypeYs:[0,300,600,900,Number.MAX_VALUE],
+      data: {  //该数据为模拟数据，有数据接口可直接输出变量
         "code": 200,
         "msg": "获取商品详情页成功",
         "data": [{
@@ -178,10 +200,11 @@ export default {
         ],
         "returnStatus": 1,
         "tnToken": null
-      } //该数据为模拟数据，有数据接口可直接输出变量
+      }
     }
   }
 }
+
 </script>
 
 <style scoped>
@@ -189,13 +212,11 @@ export default {
   height: 100vh;
   background: #fff;
 }
-
 .content {
+  background: #fff;
+  height: calc(100% - 50px);
   overflow: hidden;
   position: absolute;
-  top: 50px;
-  left: 0px;
-  right: 0px;
-  bottom: 49px;
+  z-index: 9;
 }
 </style>

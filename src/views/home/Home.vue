@@ -54,9 +54,11 @@ import FeatureView from './childComps/FeatureView' //本周流行（暂为图片
 import TabControl from 'components/content/tabControl/TabControl'; //切换商品展示类型
 import GoodsShow from 'components/content/goodsShow/GoodsList'; //商品显示
 import Scroll from 'components/common/scroll/Scroll'; //滚动组件
-import BackTop from 'components/common/backTop/BackTop'; //返回顶部
 
 import {getHomeMultidata,getHomeGoodsList} from 'network/home.js'; //首页数据请求
+
+import {debounce} from 'common/util.js'
+import {showBackTop} from 'common/mixin.js'
 
 export default {
   name:'Home',
@@ -67,9 +69,9 @@ export default {
     FeatureView,
     TabControl,
     GoodsShow,
-    Scroll,
-    BackTop
+    Scroll
   },
+  mixins:[showBackTop],
   data(){
     return{
       banners:[],
@@ -80,7 +82,6 @@ export default {
         "sell":{page:0,length:20,data:[]},
       },
       currentType:'new',
-      isShowTopBack:false,
       tabOffsetTop:0,
       isTabFixed:false,
       saveY : 0
@@ -94,7 +95,7 @@ export default {
   },
   mounted(){
     //创建完成方法
-    const refresh = this.debounce(this.$refs.scroll.refresh,500)
+    const refresh = debounce(this.$refs.scroll.refresh,500)
     // 防抖动
     this.$bus.$on('itemImageLoad',()=>{
       refresh()
@@ -134,12 +135,8 @@ export default {
       this.$refs.tabControl_hidden.currentIndex = index
       this.$refs.tabControl_show.currentIndex = index
     },
-    backClick(){
-      this.$refs.scroll.scrollTo(0,50,500)
-    },
     contentScroll(postion){
-      // 滚动判断是否显示返回按钮
-      this.isShowTopBack = -postion.y >1000
+      this.listenShowBackTop(postion)
       // 判断是否显示吸顶效果
       this.isTabFixed = -postion.y > this.tabOffsetTop
     },
@@ -147,15 +144,7 @@ export default {
       console.log('正在上拉..');
       this.getGoodsList(this.currentType)
     },
-    debounce(func,delay){ //防抖动函数
-        let timer = null
-        return function (...args){
-          if(timer) clearTimeout(timer)
-          timer = setTimeout(()=>{
-              func.apply(this,args)
-          },delay)
-        }
-    },
+
     bannerLoad(){
         // 轮播图加载完,获取吸顶组件位置
       this.tabOffsetTop = this.$refs.tabControl_show.$el.offsetTop

@@ -18,7 +18,7 @@ export default {
   name: 'DetailNavBar',
   data() {
     return {
-      titles: ['商品', '参数', '评论', '推荐'],
+      titles: ['商品','评论' ,'店铺','详情'],
       currentIndex: 0
     }
   },
@@ -27,7 +27,8 @@ export default {
       this.$router.back()
     },
     clickItem(index) {
-      this.currentIndex = index
+      this.currentIndex = index;
+      this.$emit('titleClick',index)
     }
   },
   components: {
