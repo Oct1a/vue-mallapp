@@ -1,5 +1,4 @@
 export default {
-  powerCounter: state => state.counter * state.counter,
-  counterLength: (state, getters) => getters.powerCounter.length,
-
+  getCartLength: state => state.cartList.length,
+  getCartList: state => state.cartList
 }

@@ -31,7 +31,7 @@ export default {
       if (this.scroll) this.scroll.refresh();
     },
     scrollTo(x, y, time = 300) {
-      this.scroll.scrollTo(x, y, time)
+       this.scroll ? this.scroll.scrollTo(x, y, time) :''
     },
     finishPullUp() {
       this.scroll.finishPullUp()
@@ -45,21 +45,23 @@ export default {
 
   },
   mounted() {
-    this.scroll = new Bscroll(this.$refs.scrollWrapper, {
-      probeType: this.probeType,
-      pullUpLoad: this.pullUpLoad,
-      click: true
-    })
+    this.$nextTick(() => {
+      if (!this.scroll) {
+      this.scroll = new Bscroll(this.$refs.scrollWrapper, {
+        probeType: this.probeType,
+        pullUpLoad: this.pullUpLoad,
+        click: true
+      })
+      }else{
+        this.refresh()
+      }
     this.scroll.on('scroll', (postion) => {
       this.$emit('scrollHeight', postion) //发送滚动条位置
     })
     this.scroll.on('pullingUp', e => {
       this.$emit('pullingUp') //上拉事件
     })
+    })
   }
 }
 </script>
-
-<style scoped>
-
-</style>

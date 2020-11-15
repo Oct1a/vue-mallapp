@@ -3,10 +3,8 @@
       <div class="goodsItem" v-for="(item,index) in goods" :key="index">
         <goods-show>
             <div slot="goods-item" @click="clickDetail(index)">
-              <!-- <div class="pin-img"> -->
-                <img :src="item.goodsLogo" alt="" class="goods-img" @load="imageload">
+                <img v-lazy="item.goodsLogo" alt="" class="goods-img" @load="imageload">
                 <p class="buyNum">已售 {{item.goodsBuyNum}} 件</p>
-              <!-- </div> -->
               <div class="detail">
                 <h4 class="title">{{item.goodsName}}</h4>
                 <div class="detail-price-fav">
@@ -38,9 +36,9 @@ export default {
         this.$bus.$emit('itemImageLoad')
       },
       clickDetail(index){
-        // console.log(index);
+        this.setLocalValue('GoodsData',JSON.stringify(this.goods[index]))
         this.$router.push('/detail/' + this.goodsData[index].goodsId)
-      }
+      },
     },
     computed: {
       goods() { //去掉图片链接后100x100.jpg为大图

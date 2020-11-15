@@ -23,7 +23,6 @@
           <!-- 首页分类展示start -->
           <recommends :recommends="recommends"></recommends>
           <!-- 首页分类展示end -->
-          <!-- <div class="space"></div> -->
           <feature-view/>
           <tabControl
             :title="['推荐','流行','潮流']"
@@ -37,8 +36,6 @@
               :goodsData="goodsData">
           </goods-show>
           <!-- 商品展示end -->
-
-          <!-- <p>上拉加载更多</p> -->
       </scroll>
       <back-top @click.native="backClick" v-show='isShowTopBack' />   <!-- 返回顶部 -->
 
@@ -100,7 +97,7 @@ export default {
     this.$bus.$on('itemImageLoad',()=>{
       refresh()
     })
-},
+  },
   computed: {
     goodsData() {
       return this.goodsList[this.currentType].data
@@ -136,18 +133,16 @@ export default {
       this.$refs.tabControl_show.currentIndex = index
     },
     contentScroll(postion){
-      this.listenShowBackTop(postion)
-      // 判断是否显示吸顶效果
-      this.isTabFixed = -postion.y > this.tabOffsetTop
+      this.listenShowBackTop(postion) //显示返回按钮
+      this.isTabFixed = -postion.y > this.tabOffsetTop // 判断是否显示吸顶效果
     },
     getMoreLoad(){
-      console.log('正在上拉..');
-      this.getGoodsList(this.currentType)
+      console.log('正在上拉请求更多..');
+      this.getGoodsList(this.currentType) //重新请求加载不同数据
     },
 
     bannerLoad(){
-        // 轮播图加载完,获取吸顶组件位置
-      this.tabOffsetTop = this.$refs.tabControl_show.$el.offsetTop
+      this.tabOffsetTop = this.$refs.tabControl_show.$el.offsetTop  // 轮播图加载完,获取吸顶组件位置
     },
     /**
      * 网络请求
@@ -179,16 +174,8 @@ export default {
   .navbar{
     background: var(--color-tint);
     color: white;
-    /* z-index: 99;
-    position:fixed;
-    top: 0;
-    left: 0;
-    right: 0; */
   }
   .tabControlfixed{
-    /* position: sticky; */
-    /* top:50px; */
-    /* z-index: 10; */
     position:fixed;
     left: 0px;
     right: 0px;
