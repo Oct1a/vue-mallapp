@@ -139,5 +139,6 @@ export default {
     padding:15px 20px;
     text-align: center;
     margin: 20px;
+    font-size: 16px;
   }
 </style>

@@ -116,5 +116,6 @@ export default {
     width: 100%;
     line-height: 30px;
     background: var(--color-high-text);
+    font-size: 14px;
   }
 </style>

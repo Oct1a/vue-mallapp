@@ -41,6 +41,7 @@ export default {
   .tab-bar-item{
     flex: 1;
     text-align: center;
+    font-size: 14px;
   }
   .tab-bar-item img{
     width:30px;
