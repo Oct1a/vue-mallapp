@@ -2,9 +2,9 @@
 
 | <img src="./img/localhost_8080_home(Moto G4).png" style="zoom: 33%;" /> | <img src="./img/localhost_8080_home(Moto G4) (1).png" alt="localhost_8080_home(Moto G4)" style="zoom:33%;" /> |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| <img src="./img/%5Clocalhost_8080_detail_1796(iPhone%206_7_8).png" style="zoom:33%;" /> | <img src="./img/%5Clocalhost_8080_home(iPhone%206_7_8%20Plus)%20(1).png" style="zoom: 25%;" /> |
-| <img src="./img/%5Clocalhost_8080_home(Moto%20G4)%20(2).png" style="zoom:33%;" /> | <img src="./img/%5Clocalhost_8080_home(iPhone%206_7_8%20Plus).png" style="zoom: 30%;" /> |
-| <img src="./img/%5Clocalhost_8080_home(iPhone%205_SE).png" style="zoom:33%;" /> |                                                              |
+| <img src="./img/localhost_8080_detail_1796(iPhone%206_7_8).png" style="zoom:33%;" /> | <img src="./img/localhost_8080_home(iPhone%206_7_8%20Plus)%20(1).png" style="zoom: 25%;" /> |
+| <img src="./img/localhost_8080_home(Moto%20G4)%20(2).png" style="zoom:33%;" /> | <img src="./img/localhost_8080_home(iPhone%206_7_8%20Plus).png" style="zoom: 30%;" /> |
+| <img src="./img/localhost_8080_home(iPhone%205_SE).png" style="zoom:33%;" /> |                                                              |
 
 ## 项目介绍
 
@@ -12,7 +12,7 @@
 > 店铺名称是用随机中文字符生成
 
 API接口使用的是:[ShopApi](https://october.w.eolinker.com/#/share/project/api/?groupID=1029756&shareCode=ZsQNDF&shareToken=$2y$10$fCvdfupB5uIJrly8fwex7OpSabJsAbc41v10Rys7zCtY2g9355EgG&shareID=256523)
-
+> 将localhost改为http://www.hj0819.top 即可使用
 
 ## 项目启动
 
@@ -327,7 +327,7 @@ https://www.jb51.net/article/132371.htm
 #### 定义一个mixin.js 文件
 
     import {debounce} from './utils';
-    
+
     export const itemListenerMixin = {
         data(){
             return {
@@ -335,15 +335,15 @@ https://www.jb51.net/article/132371.htm
             }
         },
         methods:{
-    
+
         },
         mounted(){
             let newRefresh = debounce(this.$refs.scroll.refresh, 100)
-    
+
             this.itemImgListener = () => {
                 newRefresh()
             }
-    
+
             this.$bus.$on('itemImgLoad', this.itemImgListener)
             console.log("我是混入的东西")
         }
@@ -357,7 +357,7 @@ mixin 里就跟一个正常的Vue的组件没有任何的区别，可以定义da
 #### Detail.vue
 
     import {itemListenerMixin} from "common/mixin";
-    
+
     mixins: [itemListenerMixin],
     //其余代码均省略
 
@@ -365,7 +365,7 @@ mixin 里就跟一个正常的Vue的组件没有任何的区别，可以定义da
 #### Home.vue
 
     import {itemListenerMixin} from "common/mixin";
-    
+
     mixins: [itemListenerMixin],
     //其余代码均省略
 
@@ -381,7 +381,7 @@ mixin 里就跟一个正常的Vue的组件没有任何的区别，可以定义da
     	console.log('mixin!')
     	}
     }
-    
+
     new Vue({
     	el: '#app',
     	mixins: [myMixin],
@@ -389,7 +389,7 @@ mixin 里就跟一个正常的Vue的组件没有任何的区别，可以定义da
     	console.log('Vue instance!')
     	}
     });
-    
+
       //Output in console
       > mixin!
       > Vue instance!
@@ -406,7 +406,7 @@ mixin 里就跟一个正常的Vue的组件没有任何的区别，可以定义da
     		this.sayHello()
     	}
     }
-    
+
     //vue instance or component
     new Vue({
     	el: '#app',
@@ -420,7 +420,7 @@ mixin 里就跟一个正常的Vue的组件没有任何的区别，可以定义da
     	this.sayHello()
     	}
     })
-    
+
     // Output in console
     > Vue instance!
     > Vue instance!
