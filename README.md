@@ -1,6 +1,21 @@
-# 基于Vue3仿蘑菇街Wap商城
+# 基于Vue仿蘑菇街Wap移动购物商城
+
+| <img src="./img/localhost_8080_home(Moto G4).png" style="zoom: 33%;" /> | <img src="./img/localhost_8080_home(Moto G4) (1).png" alt="localhost_8080_home(Moto G4)" style="zoom:33%;" /> |
+| ------------------------------------------------------------ | ------------------------------------------------------------ |
+| <img src="./img/%5Clocalhost_8080_detail_1796(iPhone%206_7_8).png" style="zoom:33%;" /> | <img src="./img/%5Clocalhost_8080_home(iPhone%206_7_8%20Plus)%20(1).png" style="zoom: 25%;" /> |
+| <img src="./img/%5Clocalhost_8080_home(Moto%20G4)%20(2).png" style="zoom:33%;" /> | <img src="./img/%5Clocalhost_8080_home(iPhone%206_7_8%20Plus).png" style="zoom: 30%;" /> |
+| <img src="./img/%5Clocalhost_8080_home(iPhone%205_SE).png" style="zoom:33%;" /> |                                                              |
+
+## 项目介绍
+
+> Vue练手项目，功能未完善，无法用于商业用途
+> 店铺名称是用随机中文字符生成
+
+API接口使用的是:[ShopApi](https://october.w.eolinker.com/#/share/project/api/?groupID=1029756&shareCode=ZsQNDF&shareToken=$2y$10$fCvdfupB5uIJrly8fwex7OpSabJsAbc41v10Rys7zCtY2g9355EgG&shareID=256523)
+
 
 ## 项目启动
+
 ```
 //先安装所需模块
 yarn install
@@ -10,16 +25,17 @@ yarn serve
 yarn build
 ```
 
-## 项目文件夹分类
-	assets 资源文件夹
-	
-	common 公共的 js 文件
-	commponents 下的 common 是复用的组件
-	content 是本次项目的业务组件
-	network 网络请求
-	store vuex状态管理
-	view 视图文件
+## 项目文件夹结构介绍
+	|-src
+		|-assets 资源文件夹
+	    |-common 公共的 js 文件
+	    |-commponents 下的 common 是复用的组件
+	    |-content 是本次项目的业务组件
+	    |-network 网络请求
+	    |-store vuex状态管理
+	    |-view 视图文件
 
+## 组件介绍
 
 ### 一. FeatureView
 
@@ -34,7 +50,7 @@ yarn build
     *   css相关
     *   选中哪一个tab, 哪一个tab的文字颜色变色, 下面border-bottom
         *   currentIndex
-
+```
     <template>
       <div class="tab-control">
           <div v-for="(item, index) in titles"
@@ -96,7 +112,7 @@ yarn build
     }
     </style>
 
-
+```
 
 ### 三. 首页商品数据的请求
 
